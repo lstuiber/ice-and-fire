@@ -16,4 +16,4 @@ The challenge is to use asyncronous JavaScript, your program should start with a
   - the name of any allegiances the character has
  
   
-
+This is a filer per charecter from the book
