@@ -35,11 +35,9 @@ async function getPovCharacters(book) {
     const  chars = result.povCharacters.map(async url => {
         const char = await fetchUrl(url);
         writeFile(`./output/${char.name}.txt`, char.name)
-        // console.log("rip", char.name)
         return await char.name;
     })
     return Promise.all(chars);
-    // return await Promise.all(chars);
 }
 
 // Homework
@@ -58,7 +56,7 @@ try {
     // })
     
     // await Promise.all(filePromises);
-    // console.log('DONE')
+    console.log('DONE')
 
 }  catch(error) {
     console.error(error.message);
