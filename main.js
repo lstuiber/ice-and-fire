@@ -31,8 +31,15 @@ async function fetchUrl(url) {
 
 async function getPovCharacters(book) {
     const url = `https://anapioficeandfire.com/api/books/${book}`;
-    const result = await fetchUrl(url);    
-    return result.povCharacters;
+    const result = await fetchUrl(url);  
+    const  chars = result.povCharacters.map(async url => {
+        const char = await fetchUrl(url);
+        writeFile(`./output/${char.name}.txt`, char.name)
+        // console.log("rip", char.name)
+        return await char.name;
+    })
+    return Promise.all(chars);
+    // return await Promise.all(chars);
 }
 
 // Homework
@@ -42,15 +49,16 @@ try {
     // we know which book
     const bookNr = 5
     const povCharacters = await getPovCharacters(bookNr)
-    const promises = povCharacters.map(url => fetchUrl(url))
-    const characters = await Promise.all(promises)
-    console.log(characters.map(char => char.name))
-    const filePromises = characters.map(char => {
-        return writeFile(`./output/${char.name}.txt`, char.name)
-    })
+    console.log(povCharacters)
+    // const promises = povCharacters.map(url => fetchUrl(url))
+    // const characters = await Promise.all(promises)
+    // console.log(characters.map(char => char.name))
+    // const filePromises = characters.map(char => {
+    //     return writeFile(`./output/${char.name}.txt`, char.name)
+    // })
     
-    await Promise.all(filePromises);
-    console.log('DONE')
+    // await Promise.all(filePromises);
+    // console.log('DONE')
 
 }  catch(error) {
     console.error(error.message);
